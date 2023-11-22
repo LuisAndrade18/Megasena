@@ -21,8 +21,8 @@ public class Megasena {
 //
 //		→ Os 7 números vencedores terão de ser sorteado pela classe Random do java. 
 //
-//		→ Após o final, percorrer o vetor com as respostas e comparar com os 7 números sorteados
-//
+//		→ Após o final, percorrer o vetor com as respostas e comparar com os 7 
+//		números sorteados
 //		→ Se o usuário acertar 5 números → Premio de 10 mil reais
 //
 //		→ Se o usuário acertar 6 números → Premio de 50 mil reais
@@ -47,6 +47,15 @@ public class Megasena {
 				for (int i = 0; i < numbers.length; i++) {
 					System.out.println((i + 1) + "° numero:");
 					numbers[i] = sc.nextInt();
+					for (int j = 0; j < i; j++) {
+						if (numbers[i] == numbers[j]) {
+							System.out.println("Escolha um numero diferente do que você "
+									+ "já escolheu!");
+							System.out.println((i + 1) + "° numero:");
+							numbers[i] = sc.nextInt();
+							j= -1;
+						}
+					}
 					if (numbers[i] > 100 || numbers[i] < 0) {
 						System.out.println("Escolha um numero valido entre 0 e 100");
 						i--;
@@ -63,32 +72,39 @@ public class Megasena {
 
 		System.out.println("Vamos começar o sorteio!");
 		System.out.println("Os numeros da sorte são:");
+
 		for (int i = 0; i < opt.length; i++) {
 			TimeUnit.SECONDS.sleep(1);
 			opt[i] = rd.nextInt(101);
+			for (int j = 0; j < i; j++) {
+				if (opt[i] == opt[j]) {
+					opt[i] = rd.nextInt(101);
+					j= -1;
+				}
+			}
 			System.out.println(opt[i]);
 		}
-		;
 
 		System.out.println("Checando se você ganhou...");
 		TimeUnit.SECONDS.sleep(2);
 
-		List<Integer> check = Arrays.asList(opt);
+		List<Integer> checkResult = Arrays.asList(opt);
+		// <diamond Tipagem>
 		for (int i = 0; i < opt.length; i++) {
 			TimeUnit.SECONDS.sleep(1);
-			if (check.contains(numbers[i])) {
-				System.out.println("Você acertou o " + (i + 1) + "° numero!");
+			if (checkResult.contains(numbers[i])) {
+				System.out.println("Você acertou o seu " + (i + 1) + "° número!");
 				acertos++;
 			} else {
-				System.out.println("Você errou o " + (i + 1) + "° numero!");
+				System.out.println("Você errou o seu " + (i + 1) + "° número!");
 			}
 		}
 		switch (acertos) {
 		case 5 -> System.out.println("Parabéns! Você acaba de ganhar 10 mil Reais!");
 		case 6 -> System.out.println("Parabéns! Você acaba de ganhar 50 mil Reais!");
-		case 7 -> System.out.println("Uau! Você acaba de ganhar o premio maximo de 200 mil Reais!");
+		case 7 -> System.out.println("Uau! Você acaba de ganhar o premio maximo "
+				+ "de 200 mil Reais!");
 		default -> System.out.println("Infelizmente você não leva nenhum premio hoje :(");
-
 		}
 
 		sc.close();
